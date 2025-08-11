@@ -1,0 +1,16 @@
+version: "3.9"
+
+services:
+  strapi:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: strapi
+    env_file:
+      - .env
+    ports:
+      - "1337:1337"
+    restart: unless-stopped
+    volumes:
+      - .:/app
+      - /app/node_modules
