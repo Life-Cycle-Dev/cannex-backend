@@ -2,12 +2,10 @@ FROM node:22-alpine AS builder
 WORKDIR /app
 
 COPY package*.json ./
-RUN npm ci
+RUN npm install
 
 COPY . .
 RUN npm run build
-
-RUN npm prune --omit=dev
 
 FROM node:22-alpine AS runtime
 WORKDIR /app
