@@ -1,13 +1,19 @@
-FROM node:22-alpine
-
+FROM node:22-alpine AS builder
 WORKDIR /app
 
 COPY package*.json ./
-
-RUN npm install
+RUN npm ci
 
 COPY . .
 RUN npm run build
+
+RUN npm prune --omit=dev
+
+FROM node:22-alpine AS runtime
+WORKDIR /app
+
+ENV NODE_ENV=production
+COPY --from=builder /app /app
 
 EXPOSE 1337
 CMD ["npm", "run", "start"]
