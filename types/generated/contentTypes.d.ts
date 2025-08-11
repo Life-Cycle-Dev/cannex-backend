@@ -388,6 +388,7 @@ export interface ApiEventEvent extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<"oneToOne", "admin::user"> &
       Schema.Attribute.Private;
+    description: Schema.Attribute.Text & Schema.Attribute.Required;
     image: Schema.Attribute.Media<"images" | "files"> &
       Schema.Attribute.Required;
     index: Schema.Attribute.Integer &
@@ -420,6 +421,7 @@ export interface ApiNewsroomNewsroom extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<"oneToOne", "admin::user"> &
       Schema.Attribute.Private;
+    description: Schema.Attribute.Text & Schema.Attribute.Required;
     image: Schema.Attribute.Media<"images" | "files"> &
       Schema.Attribute.Required;
     index: Schema.Attribute.Integer &
@@ -437,6 +439,37 @@ export interface ApiNewsroomNewsroom extends Struct.CollectionTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<"oneToOne", "admin::user"> &
       Schema.Attribute.Private;
+  };
+}
+
+export interface ApiWebConfigWebConfig extends Struct.CollectionTypeSchema {
+  collectionName: "web_configs";
+  info: {
+    displayName: "Web Config";
+    pluralName: "web-configs";
+    singularName: "web-config";
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<"oneToOne", "admin::user"> &
+      Schema.Attribute.Private;
+    key: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      "oneToMany",
+      "api::web-config.web-config"
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<"oneToOne", "admin::user"> &
+      Schema.Attribute.Private;
+    value: Schema.Attribute.String & Schema.Attribute.Required;
   };
 }
 
@@ -951,6 +984,7 @@ declare module "@strapi/strapi" {
       "admin::user": AdminUser;
       "api::event.event": ApiEventEvent;
       "api::newsroom.newsroom": ApiNewsroomNewsroom;
+      "api::web-config.web-config": ApiWebConfigWebConfig;
       "plugin::content-releases.release": PluginContentReleasesRelease;
       "plugin::content-releases.release-action": PluginContentReleasesReleaseAction;
       "plugin::i18n.locale": PluginI18NLocale;

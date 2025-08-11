@@ -34,6 +34,10 @@
         "files"
       ]
     },
+    "description": {
+      "type": "text",
+      "required": true
+    },
     "content": {
       "type": "richtext"
     }
