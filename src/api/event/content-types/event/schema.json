@@ -1,10 +1,10 @@
 {
   "kind": "collectionType",
-  "collectionName": "newsrooms",
+  "collectionName": "events",
   "info": {
-    "singularName": "newsroom",
-    "pluralName": "newsrooms",
-    "displayName": "Newsroom"
+    "singularName": "event",
+    "pluralName": "events",
+    "displayName": "Event"
   },
   "options": {
     "draftAndPublish": true
