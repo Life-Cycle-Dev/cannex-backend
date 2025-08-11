@@ -1,10 +1,15 @@
-FROM node:22.13
+FROM node:22
 
-WORKDIR /
+WORKDIR /app
+
+COPY package.json yarn.lock ./
+
+RUN yarn install --frozen-lockfile
 
 COPY . .
 
-RUN npm install && npm run build
+RUN yarn build
 
 EXPOSE 1337
-CMD ["npm", "run", "start"]
+
+CMD ["yarn", "start"]
