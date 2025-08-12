@@ -389,8 +389,7 @@ export interface ApiEventEvent extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<"oneToOne", "admin::user"> &
       Schema.Attribute.Private;
     description: Schema.Attribute.Text & Schema.Attribute.Required;
-    image: Schema.Attribute.Media<"images" | "files"> &
-      Schema.Attribute.Required;
+    image: Schema.Attribute.Media<"images"> & Schema.Attribute.Required;
     index: Schema.Attribute.Integer &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<0>;
@@ -422,8 +421,7 @@ export interface ApiNewsroomNewsroom extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<"oneToOne", "admin::user"> &
       Schema.Attribute.Private;
     description: Schema.Attribute.Text & Schema.Attribute.Required;
-    image: Schema.Attribute.Media<"images" | "files"> &
-      Schema.Attribute.Required;
+    image: Schema.Attribute.Media<"images"> & Schema.Attribute.Required;
     index: Schema.Attribute.Integer &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<0>;
