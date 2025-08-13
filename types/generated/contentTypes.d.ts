@@ -381,7 +381,7 @@ export interface ApiContactFormContactForm extends Struct.CollectionTypeSchema {
     singularName: "contact-form";
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   attributes: {
     createdAt: Schema.Attribute.DateTime;
