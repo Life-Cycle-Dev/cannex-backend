@@ -17,7 +17,7 @@
       "unique": true
     },
     "value": {
-      "type": "string",
+      "type": "text",
       "required": true
     }
   }
