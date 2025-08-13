@@ -27,13 +27,13 @@ export default ({ env }) => ({
         if (status === "published") {
           if (uid === "api::newsroom.newsroom") {
             return `${env('CLIENT_URL')}/newsroom/${document.slug}`
-          } else {
+          } else if (uid === "api::event.event") {
             return `${env('CLIENT_URL')}/events/${document.slug}`
           }
         } else if (status === "draft") {
           if (uid === "api::newsroom.newsroom") {
             return `${env('CLIENT_URL')}/newsroom/${document.slug}?preview=true`
-          } else {
+          } else if (uid === "api::event.event") {
             return `${env('CLIENT_URL')}/events/${document.slug}?preview=true`
           }
         }
