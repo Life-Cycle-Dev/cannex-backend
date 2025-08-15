@@ -20,11 +20,6 @@
       "required": false,
       "unique": true
     },
-    "index": {
-      "type": "integer",
-      "required": true,
-      "default": 0
-    },
     "image": {
       "type": "media",
       "multiple": false,
@@ -39,6 +34,11 @@
     },
     "content": {
       "type": "richtext"
+    },
+    "view": {
+      "type": "integer",
+      "default": 0,
+      "min": 0
     }
   }
 }

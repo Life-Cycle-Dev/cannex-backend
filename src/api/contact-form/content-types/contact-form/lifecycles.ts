@@ -18,6 +18,12 @@ export default {
         const { result } = event;
 
         try {
+            const enable: string = await getValueByKey("contact-form.enable")
+
+            if (enable !== "true") {
+                return;
+            }
+
             const replyToEmail: string = await getValueByKey("contact-form.reply-to")
             const replySubject: string = await getValueByKey("contact-form.reply-subject")
             let replyMessage: string = await getValueByKey("contact-form.reply-message")

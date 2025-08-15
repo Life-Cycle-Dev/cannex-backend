@@ -42,8 +42,5 @@ export default ({ env }) => ({
                 defaultReplyTo: env('SMTP_DEFAULT_REPLYTO', env('SMTP_USERNAME')),
             },
         },
-    },
-    'drag-drop-content-types-strapi5': {
-        enabled: true,
-    },
+    }
 });

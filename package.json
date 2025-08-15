@@ -20,7 +20,6 @@
     "@strapi/provider-email-nodemailer": "^5.22.0",
     "@strapi/provider-upload-aws-s3": "^5.22.0",
     "@strapi/strapi": "5.22.0",
-    "@yunusemrejs/drag-drop-content-types-strapi5": "^1.0.11",
     "pg": "8.8.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
