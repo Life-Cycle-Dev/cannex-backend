@@ -11,21 +11,13 @@ export default factories.createCoreController('api::newsroom.newsroom', ({ strap
 
         if (filters && filters.hasOwnProperty("slug")) {
             const slugValue = filters.slug.$eq || filters.slug;
-
-            const records = await strapi.db.query('api::newsroom.newsroom').findMany({
-                where: { slug: slugValue },
-                select: ['id', 'view']
-            });
-
-            for (const record of records) {
-                await strapi.db.query('api::newsroom.newsroom').update({
-                    where: { id: record.id },
-                    data: {
-                        view: record.view == null ? 1 : record.view + 1
-                    }
-                });
-            }
-        }
+      
+            await strapi.db.connection('newsrooms')
+              .where({ slug: slugValue })
+              .update({
+                view: strapi.db.connection.raw('COALESCE(view, 0) + 1')
+              });
+          }
 
         return response;
     },

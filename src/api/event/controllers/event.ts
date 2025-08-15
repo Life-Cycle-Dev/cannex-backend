@@ -12,19 +12,11 @@ export default factories.createCoreController('api::event.event', ({ strapi }) =
         if (filters && filters.hasOwnProperty("slug")) {
             const slugValue = filters.slug.$eq || filters.slug;
 
-            const records = await strapi.db.query('api::event.event').findMany({
-                where: { slug: slugValue },
-                select: ['id', 'view']
-            });
-
-            for (const record of records) {
-                await strapi.db.query('api::event.event').update({
-                    where: { id: record.id },
-                    data: {
-                        view: record.view == null ? 1 : record.view + 1
-                    }
+            await strapi.db.connection('events')
+                .where({ slug: slugValue })
+                .update({
+                    view: strapi.db.connection.raw('COALESCE(view, 0) + 1')
                 });
-            }
         }
 
         return response;
