@@ -31,6 +31,16 @@
       "component": "seo.seo",
       "repeatable": false
     },
+    "newsroomPage": {
+      "type": "component",
+      "component": "seo.seo",
+      "repeatable": false
+    },
+    "eventPage": {
+      "type": "component",
+      "component": "seo.seo",
+      "repeatable": false
+    },
     "partnershipPage": {
       "type": "component",
       "component": "seo.seo",

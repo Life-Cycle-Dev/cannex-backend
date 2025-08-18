@@ -626,10 +626,12 @@ export interface ApiSeoSeo extends Struct.SingleTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<"oneToOne", "admin::user"> &
       Schema.Attribute.Private;
+    eventPage: Schema.Attribute.Component<"seo.seo", false>;
     homepage: Schema.Attribute.Component<"seo.seo", false>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<"oneToMany", "api::seo.seo"> &
       Schema.Attribute.Private;
+    newsroomPage: Schema.Attribute.Component<"seo.seo", false>;
     partnershipPage: Schema.Attribute.Component<"seo.seo", false>;
     productPage: Schema.Attribute.Component<"seo.seo", false>;
     publishedAt: Schema.Attribute.DateTime;
