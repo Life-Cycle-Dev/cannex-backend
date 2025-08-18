@@ -40,6 +40,9 @@
     },
     "labGoogleMap": {
       "type": "string"
+    },
+    "taxId": {
+      "type": "string"
     }
   }
 }
