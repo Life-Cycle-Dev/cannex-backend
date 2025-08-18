@@ -373,6 +373,76 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiConfigConfig extends Struct.SingleTypeSchema {
+  collectionName: "configs";
+  info: {
+    displayName: "Contact Config";
+    pluralName: "configs";
+    singularName: "config";
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    companyName: Schema.Attribute.String;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<"oneToOne", "admin::user"> &
+      Schema.Attribute.Private;
+    email: Schema.Attribute.Email;
+    fackbook: Schema.Attribute.String;
+    headquarterAddress: Schema.Attribute.Text;
+    headquarterGoogleMap: Schema.Attribute.String;
+    instagram: Schema.Attribute.String;
+    labAddress: Schema.Attribute.Text;
+    labGoogleMap: Schema.Attribute.String;
+    linkedIn: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      "oneToMany",
+      "api::config.config"
+    > &
+      Schema.Attribute.Private;
+    phone: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<"oneToOne", "admin::user"> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiContactFormConfigContactFormConfig
+  extends Struct.SingleTypeSchema {
+  collectionName: "contact_form_configs";
+  info: {
+    displayName: "Contact Form Config";
+    pluralName: "contact-form-configs";
+    singularName: "contact-form-config";
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<"oneToOne", "admin::user"> &
+      Schema.Attribute.Private;
+    enable: Schema.Attribute.Boolean;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      "oneToMany",
+      "api::contact-form-config.contact-form-config"
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    reason: Schema.Attribute.Text;
+    replyMessage: Schema.Attribute.Text;
+    replySubject: Schema.Attribute.String;
+    replyTo: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<"oneToOne", "admin::user"> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiContactFormContactForm extends Struct.CollectionTypeSchema {
   collectionName: "contact_forms";
   info: {
@@ -416,7 +486,13 @@ export interface ApiEventEvent extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
-    content: Schema.Attribute.RichText;
+    content: Schema.Attribute.RichText &
+      Schema.Attribute.CustomField<
+        "plugin::ckeditor5.CKEditor",
+        {
+          preset: "defaultHtml";
+        }
+      >;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<"oneToOne", "admin::user"> &
       Schema.Attribute.Private;
@@ -426,7 +502,15 @@ export interface ApiEventEvent extends Struct.CollectionTypeSchema {
     localizations: Schema.Attribute.Relation<"oneToMany", "api::event.event"> &
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
-    slug: Schema.Attribute.String & Schema.Attribute.Unique;
+    seo: Schema.Attribute.Component<"seo.seo", false>;
+    slug: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.CustomField<
+        "plugin::auto-locales-slug.auto-locales-slug",
+        {
+          pattern: "title";
+        }
+      >;
     title: Schema.Attribute.String & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<"oneToOne", "admin::user"> &
@@ -439,6 +523,35 @@ export interface ApiEventEvent extends Struct.CollectionTypeSchema {
         number
       > &
       Schema.Attribute.DefaultTo<0>;
+  };
+}
+
+export interface ApiHighlightHighlight extends Struct.SingleTypeSchema {
+  collectionName: "highlights";
+  info: {
+    displayName: "Highlight";
+    pluralName: "highlights";
+    singularName: "highlight";
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<"oneToOne", "admin::user"> &
+      Schema.Attribute.Private;
+    events: Schema.Attribute.Relation<"oneToMany", "api::event.event">;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      "oneToMany",
+      "api::highlight.highlight"
+    > &
+      Schema.Attribute.Private;
+    newsrooms: Schema.Attribute.Relation<"oneToMany", "api::newsroom.newsroom">;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<"oneToOne", "admin::user"> &
+      Schema.Attribute.Private;
   };
 }
 
@@ -453,7 +566,13 @@ export interface ApiNewsroomNewsroom extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
-    content: Schema.Attribute.RichText;
+    content: Schema.Attribute.RichText &
+      Schema.Attribute.CustomField<
+        "plugin::ckeditor5.CKEditor",
+        {
+          preset: "defaultHtml";
+        }
+      >;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<"oneToOne", "admin::user"> &
       Schema.Attribute.Private;
@@ -466,7 +585,15 @@ export interface ApiNewsroomNewsroom extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
-    slug: Schema.Attribute.String & Schema.Attribute.Unique;
+    seo: Schema.Attribute.Component<"seo.seo", false>;
+    slug: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.CustomField<
+        "plugin::auto-locales-slug.auto-locales-slug",
+        {
+          pattern: "title";
+        }
+      >;
     title: Schema.Attribute.String & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<"oneToOne", "admin::user"> &
@@ -482,34 +609,33 @@ export interface ApiNewsroomNewsroom extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiWebConfigWebConfig extends Struct.CollectionTypeSchema {
-  collectionName: "web_configs";
+export interface ApiSeoSeo extends Struct.SingleTypeSchema {
+  collectionName: "seos";
   info: {
-    displayName: "Web Config";
-    pluralName: "web-configs";
-    singularName: "web-config";
+    displayName: "SEO";
+    pluralName: "seos";
+    singularName: "seo";
   };
   options: {
     draftAndPublish: false;
   };
   attributes: {
+    aboutUsPage: Schema.Attribute.Component<"seo.seo", false>;
+    contactUsAndInquiryPage: Schema.Attribute.Component<"seo.seo", false>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<"oneToOne", "admin::user"> &
       Schema.Attribute.Private;
-    key: Schema.Attribute.String &
-      Schema.Attribute.Required &
-      Schema.Attribute.Unique;
+    homepage: Schema.Attribute.Component<"seo.seo", false>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      "oneToMany",
-      "api::web-config.web-config"
-    > &
+    localizations: Schema.Attribute.Relation<"oneToMany", "api::seo.seo"> &
       Schema.Attribute.Private;
+    partnershipPage: Schema.Attribute.Component<"seo.seo", false>;
+    productPage: Schema.Attribute.Component<"seo.seo", false>;
     publishedAt: Schema.Attribute.DateTime;
+    researchAndDevelopmentPage: Schema.Attribute.Component<"seo.seo", false>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<"oneToOne", "admin::user"> &
       Schema.Attribute.Private;
-    value: Schema.Attribute.Text & Schema.Attribute.Required;
   };
 }
 
@@ -645,6 +771,46 @@ export interface PluginI18NLocale extends Struct.CollectionTypeSchema {
         },
         number
       >;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<"oneToOne", "admin::user"> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface PluginPublisherAction extends Struct.CollectionTypeSchema {
+  collectionName: "actions";
+  info: {
+    displayName: "actions";
+    pluralName: "actions";
+    singularName: "action";
+  };
+  options: {
+    comment: "";
+    draftAndPublish: false;
+  };
+  pluginOptions: {
+    "content-manager": {
+      visible: false;
+    };
+    "content-type-builder": {
+      visible: false;
+    };
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<"oneToOne", "admin::user"> &
+      Schema.Attribute.Private;
+    entityId: Schema.Attribute.String & Schema.Attribute.Required;
+    entitySlug: Schema.Attribute.String & Schema.Attribute.Required;
+    executeAt: Schema.Attribute.DateTime & Schema.Attribute.Required;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      "oneToMany",
+      "plugin::publisher.action"
+    > &
+      Schema.Attribute.Private;
+    mode: Schema.Attribute.String & Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<"oneToOne", "admin::user"> &
@@ -1022,13 +1188,17 @@ declare module "@strapi/strapi" {
       "admin::transfer-token": AdminTransferToken;
       "admin::transfer-token-permission": AdminTransferTokenPermission;
       "admin::user": AdminUser;
+      "api::config.config": ApiConfigConfig;
+      "api::contact-form-config.contact-form-config": ApiContactFormConfigContactFormConfig;
       "api::contact-form.contact-form": ApiContactFormContactForm;
       "api::event.event": ApiEventEvent;
+      "api::highlight.highlight": ApiHighlightHighlight;
       "api::newsroom.newsroom": ApiNewsroomNewsroom;
-      "api::web-config.web-config": ApiWebConfigWebConfig;
+      "api::seo.seo": ApiSeoSeo;
       "plugin::content-releases.release": PluginContentReleasesRelease;
       "plugin::content-releases.release-action": PluginContentReleasesReleaseAction;
       "plugin::i18n.locale": PluginI18NLocale;
+      "plugin::publisher.action": PluginPublisherAction;
       "plugin::review-workflows.workflow": PluginReviewWorkflowsWorkflow;
       "plugin::review-workflows.workflow-stage": PluginReviewWorkflowsWorkflowStage;
       "plugin::upload.file": PluginUploadFile;

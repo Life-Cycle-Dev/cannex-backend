@@ -42,5 +42,66 @@ export default ({ env }) => ({
                 defaultReplyTo: env('SMTP_DEFAULT_REPLYTO', env('SMTP_USERNAME')),
             },
         },
-    }
+    },
+    'webp-converter': {
+        enabled: true,
+        config: {
+            mimeTypes: undefined,
+        },
+    },
+    'publisher': {
+        enabled: true,
+        config: {
+            hooks: {
+                beforePublish: async ({ strapi, uid, entity }) => {
+                    console.log('beforePublish');
+                },
+                afterPublish: async ({ strapi, uid, entity }) => {
+                    console.log('afterPublish');
+                },
+                beforeUnpublish: async ({ strapi, uid, entity }) => {
+                    console.log('beforeUnpublish');
+                },
+                afterUnpublish: async ({ strapi, uid, entity }) => {
+                    console.log('afterUnpublish');
+                },
+            },
+        },
+    },
+    'preview-button': {
+        config: {
+            contentTypes: [
+                {
+                    uid: 'api::newsroom.newsroom',
+                    draft: {
+                        url: env('CLIENT_URL') + '/newsroom/{slug}?preview=true',
+                        query: {
+                            type: 'page',
+                            slug: '{slug}',
+                        },
+                        openTarget: 'StrapiPreviewPage',
+                    },
+                    published: {
+                        url: env('CLIENT_URL') + '/newsroom/{slug}',
+                        openTarget: 'StrapiPage',
+                    },
+                },
+                {
+                    uid: 'api::event.event',
+                    draft: {
+                        url: env('CLIENT_URL') + '/events/{slug}?preview=true',
+                        query: {
+                            type: 'page',
+                            slug: '{slug}',
+                        },
+                        openTarget: 'StrapiPreviewPage',
+                    },
+                    published: {
+                        url: env('CLIENT_URL') + '/newsroom/{slug}',
+                        openTarget: 'StrapiPage',
+                    },
+                },
+            ],
+        },
+    },
 });

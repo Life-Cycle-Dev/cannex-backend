@@ -16,9 +16,12 @@
       "required": true
     },
     "slug": {
-      "type": "string",
-      "required": false,
-      "unique": true
+      "type": "customField",
+      "customField": "plugin::auto-locales-slug.auto-locales-slug",
+      "required": true,
+      "options": {
+        "pattern": "title"
+      }
     },
     "image": {
       "type": "media",
@@ -33,12 +36,21 @@
       "required": true
     },
     "content": {
-      "type": "richtext"
+      "type": "customField",
+      "customField": "plugin::ckeditor5.CKEditor",
+      "options": {
+        "preset": "defaultHtml"
+      }
     },
     "view": {
       "type": "integer",
       "default": 0,
       "min": 0
+    },
+    "seo": {
+      "type": "component",
+      "component": "seo.seo",
+      "repeatable": false
     }
   }
 }

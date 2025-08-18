@@ -1,0 +1,30 @@
+{
+  "kind": "singleType",
+  "collectionName": "contact_form_configs",
+  "info": {
+    "singularName": "contact-form-config",
+    "pluralName": "contact-form-configs",
+    "displayName": "Contact Form Config"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "enable": {
+      "type": "boolean"
+    },
+    "reason": {
+      "type": "text"
+    },
+    "replySubject": {
+      "type": "string"
+    },
+    "replyMessage": {
+      "type": "text"
+    },
+    "replyTo": {
+      "type": "string"
+    }
+  }
+}

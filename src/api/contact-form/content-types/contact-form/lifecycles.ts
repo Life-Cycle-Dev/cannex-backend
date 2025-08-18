@@ -1,32 +1,19 @@
 
-const getValueByKey = async (key: string): Promise<string> => {
-    try {
-        const document = await strapi.documents("api::web-config.web-config").findFirst({
-            filters: {
-                key: key
-            }
-        });
-        return document.value;
-    } catch (error) {
-        console.log(error);
-        return ""
-    }
-}
 
 export default {
     async afterCreate(event) {
         const { result } = event;
 
         try {
-            const enable: string = await getValueByKey("contact-form.enable")
+            const config = await strapi.service("api::contact-form-config.contact-form-config").findFirst()
 
-            if (enable !== "true") {
+            if (config.enable !== "true") {
                 return;
             }
 
-            const replyToEmail: string = await getValueByKey("contact-form.reply-to")
-            const replySubject: string = await getValueByKey("contact-form.reply-subject")
-            let replyMessage: string = await getValueByKey("contact-form.reply-message")
+            const replyToEmail: string = config.replyTo;
+            const replySubject: string = config.replySubject;
+            let replyMessage: string = config.replyMessage;
 
             replyMessage = replyMessage.replace("{firstname}", result.firstname)
                 .replace("{lastname}", result.lastname)

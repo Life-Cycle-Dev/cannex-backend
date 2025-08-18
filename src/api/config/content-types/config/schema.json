@@ -1,0 +1,45 @@
+{
+  "kind": "singleType",
+  "collectionName": "configs",
+  "info": {
+    "singularName": "config",
+    "pluralName": "configs",
+    "displayName": "Contact Config"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "companyName": {
+      "type": "string"
+    },
+    "email": {
+      "type": "email"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "fackbook": {
+      "type": "string"
+    },
+    "instagram": {
+      "type": "string"
+    },
+    "linkedIn": {
+      "type": "string"
+    },
+    "headquarterAddress": {
+      "type": "text"
+    },
+    "headquarterGoogleMap": {
+      "type": "string"
+    },
+    "labAddress": {
+      "type": "text"
+    },
+    "labGoogleMap": {
+      "type": "string"
+    }
+  }
+}

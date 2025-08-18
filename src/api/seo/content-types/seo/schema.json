@@ -1,0 +1,45 @@
+{
+  "kind": "singleType",
+  "collectionName": "seos",
+  "info": {
+    "singularName": "seo",
+    "pluralName": "seos",
+    "displayName": "SEO"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "homepage": {
+      "type": "component",
+      "component": "seo.seo",
+      "repeatable": false
+    },
+    "aboutUsPage": {
+      "type": "component",
+      "component": "seo.seo",
+      "repeatable": false
+    },
+    "productPage": {
+      "type": "component",
+      "component": "seo.seo",
+      "repeatable": false
+    },
+    "researchAndDevelopmentPage": {
+      "type": "component",
+      "component": "seo.seo",
+      "repeatable": false
+    },
+    "partnershipPage": {
+      "type": "component",
+      "component": "seo.seo",
+      "repeatable": false
+    },
+    "contactUsAndInquiryPage": {
+      "type": "component",
+      "component": "seo.seo",
+      "repeatable": false
+    }
+  }
+}
