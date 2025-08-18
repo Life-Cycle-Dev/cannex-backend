@@ -74,10 +74,9 @@ export default ({ env }) => ({
                 {
                     uid: 'api::newsroom.newsroom',
                     draft: {
-                        url: env('CLIENT_URL') + '/newsroom/{slug}?preview=true',
+                        url: env('CLIENT_URL') + '/newsroom/{slug}',
                         query: {
-                            type: 'page',
-                            slug: '{slug}',
+                            preview: 'true',
                         },
                         openTarget: 'StrapiPreviewPage',
                     },
@@ -89,15 +88,14 @@ export default ({ env }) => ({
                 {
                     uid: 'api::event.event',
                     draft: {
-                        url: env('CLIENT_URL') + '/events/{slug}?preview=true',
+                        url: env('CLIENT_URL') + '/events/{slug}',
                         query: {
-                            type: 'page',
-                            slug: '{slug}',
+                            preview: 'true',
                         },
                         openTarget: 'StrapiPreviewPage',
                     },
                     published: {
-                        url: env('CLIENT_URL') + '/newsroom/{slug}',
+                        url: env('CLIENT_URL') + '/events/{slug}',
                         openTarget: 'StrapiPage',
                     },
                 },
