@@ -391,10 +391,10 @@ export interface ApiConfigConfig extends Struct.SingleTypeSchema {
     email: Schema.Attribute.Email;
     fackbook: Schema.Attribute.String;
     headquarterAddress: Schema.Attribute.Text;
-    headquarterGoogleMap: Schema.Attribute.String;
+    headquarterGoogleMap: Schema.Attribute.Text;
     instagram: Schema.Attribute.String;
     labAddress: Schema.Attribute.Text;
-    labGoogleMap: Schema.Attribute.String;
+    labGoogleMap: Schema.Attribute.Text;
     linkedIn: Schema.Attribute.String;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<

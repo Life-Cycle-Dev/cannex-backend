@@ -33,13 +33,13 @@
       "type": "text"
     },
     "headquarterGoogleMap": {
-      "type": "string"
+      "type": "text"
     },
     "labAddress": {
       "type": "text"
     },
     "labGoogleMap": {
-      "type": "string"
+      "type": "text"
     },
     "taxId": {
       "type": "string"
