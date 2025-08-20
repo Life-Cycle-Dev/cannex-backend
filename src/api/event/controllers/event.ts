@@ -23,22 +23,44 @@ export default factories.createCoreController('api::event.event', ({ strapi }) =
     },
     async random(ctx) {
         const limit = Number(ctx.query.limit) || 1;
-        const count = await strapi.db.query("api::event.event").count();
-        if (count === 0) {
-            return ctx.body = { data: [], meta: {} };
-        }
 
-        const randomOffset = Math.floor(Math.random() * count);
-        const entries = await strapi.entityService.findMany("api::event.event", {
-            populate: {
-                image: { fields: ["url", "alternativeText"] },
-                seo: { populate: { metaImage: true } },
-            },
-            fields: ["title", "description", "publishedAt", "slug"],
-            limit,
-            start: randomOffset,
+        const count = await strapi.db.query("api::event.event").count({
+            where: {
+                publishedAt: { $notNull: true }
+            }
         });
 
+        if (count === 0) {
+            ctx.body = { data: [], meta: {} };
+            return;
+        }
+
+        let entries;
+
+        if (count <= limit) {
+            entries = await strapi.entityService.findMany("api::event.event", {
+                populate: {
+                    image: { fields: ["url", "alternativeText"] },
+                    seo: { populate: { metaImage: true } },
+                },
+                fields: ["title", "description", "publishedAt", "slug"],
+                sort: ["publishedAt:desc"],
+            });
+        } else {
+            const randomOffset = Math.floor(Math.random() * (count - limit + 1));
+
+            entries = await strapi.entityService.findMany("api::event.event", {
+                populate: {
+                    image: { fields: ["url", "alternativeText"] },
+                    seo: { populate: { metaImage: true } },
+                },
+                fields: ["title", "description", "publishedAt", "slug"],
+                start: randomOffset,
+                limit,
+            });
+        }
+
         ctx.body = { data: entries, meta: { total: count } };
-    },
+    }
+
 }));
