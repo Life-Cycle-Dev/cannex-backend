@@ -2,7 +2,7 @@ export default {
     routes: [
         {
             method: "GET",
-            path: "/newsrooms",
+            path: "/events",
             handler: "event.find",
             config: {
                 auth: false,
@@ -10,8 +10,16 @@ export default {
         },
         {
             method: "GET",
-            path: "/newsrooms/random",
-            handler: "newsroom.random",
+            path: "/events/:id",
+            handler: "event.findOne",
+            config: {
+                auth: false,
+            },
+        },
+        {
+            method: "GET",
+            path: "/events/random",
+            handler: "event.random",
             config: {
                 auth: false,
             },
