@@ -22,9 +22,24 @@ export default factories.createCoreController('api::newsroom.newsroom', ({ strap
     return response;
   },
   async random(ctx) {
-    const limit = ctx.query.limit ? Number(ctx.query.limit) : 1;
-    const results = await strapi.service("api::newsroom.newsroom").findRandom(limit);
-    ctx.body = results;
-  },
+    const limit = Number(ctx.query.limit) || 1;
+    const count = await strapi.db.query("api::event.event").count();
+    if (count === 0) {
+        return ctx.body = { data: [], meta: {} };
+    }
+
+    const randomOffset = Math.floor(Math.random() * count);
+    const entries = await strapi.entityService.findMany("api::event.event", {
+        populate: {
+            image: { fields: ["url", "alternativeText"] },
+            seo: { populate: { metaImage: true } },
+        },
+        fields: ["title", "description", "publishedAt", "slug"],
+        limit,
+        start: randomOffset,
+    });
+
+    ctx.body = { data: entries, meta: { total: count } };
+},
 }));
 
