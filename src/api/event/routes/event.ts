@@ -1,18 +1,18 @@
-/**
- * event router
- */
+export default {
+    routes: [
+        {
+            method: "GET",
+            path: "/events/random",
+            handler: "event.random",
+            config: {
+                auth: false,
+            },
+        },
 
-import { factories } from '@strapi/strapi';
-
-export default factories.createCoreController("api::event.event", ({ strapi }) => ({
-    async random(ctx) {
-        const limit = ctx.query.limit ? Number(ctx.query.limit) : 1;
-
-        const knex = strapi.db.connection;
-        const rows = await knex("events")
-            .orderByRaw("RANDOM()")
-            .limit(limit);
-
-        ctx.body = { data: rows };
-    },
-}));
+        { method: "GET", path: "/events", handler: "event.find" },
+        { method: "GET", path: "/events/:id", handler: "event.findOne" },
+        { method: "POST", path: "/events", handler: "event.create" },
+        { method: "PUT", path: "/events/:id", handler: "event.update" },
+        { method: "DELETE", path: "/events/:id", handler: "event.delete" },
+    ],
+};

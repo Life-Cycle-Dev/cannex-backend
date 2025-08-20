@@ -1,18 +1,18 @@
-/**
- * newsroom router
- */
+export default {
+    routes: [
+        {
+            method: "GET",
+            path: "/newsrooms/random",
+            handler: "newsroom.random",
+            config: {
+                auth: false,
+            },
+        },
 
-import { factories } from '@strapi/strapi';
-
-export default factories.createCoreController("api::newsroom.newsroom", ({ strapi }) => ({
-    async random(ctx) {
-        const limit = ctx.query.limit ? Number(ctx.query.limit) : 1;
-
-        const knex = strapi.db.connection;
-        const rows = await knex("newsrooms")
-            .orderByRaw("RANDOM()")
-            .limit(limit);
-
-        ctx.body = { data: rows };
-    },
-}));
+        { method: "GET", path: "/newsrooms", handler: "newsroom.find" },
+        { method: "GET", path: "/newsrooms/:id", handler: "newsroom.findOne" },
+        { method: "POST", path: "/newsrooms", handler: "newsroom.create" },
+        { method: "PUT", path: "/newsrooms/:id", handler: "newsroom.update" },
+        { method: "DELETE", path: "/newsrooms/:id", handler: "newsroom.delete" },
+    ],
+};
