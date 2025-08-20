@@ -21,4 +21,9 @@ export default factories.createCoreController('api::event.event', ({ strapi }) =
 
         return response;
     },
+    async random(ctx) {
+        const limit = ctx.query.limit ? Number(ctx.query.limit) : 1;
+        const results = await strapi.service("api::event.event").findRandom(limit);
+        ctx.body = results;
+    },
 }));

@@ -5,21 +5,26 @@
 import { factories } from '@strapi/strapi'
 
 export default factories.createCoreController('api::newsroom.newsroom', ({ strapi }) => ({
-    async find(ctx) {
-        const filters = ctx.query.filters as Record<string, any>;
-        const response = await super.find(ctx);
+  async find(ctx) {
+    const filters = ctx.query.filters as Record<string, any>;
+    const response = await super.find(ctx);
 
-        if (filters && filters.hasOwnProperty("slug")) {
-            const slugValue = filters.slug.$eq || filters.slug;
-      
-            await strapi.db.connection('newsrooms')
-              .where({ slug: slugValue })
-              .update({
-                view: strapi.db.connection.raw('COALESCE(view, 0) + 1')
-              });
-          }
+    if (filters && filters.hasOwnProperty("slug")) {
+      const slugValue = filters.slug.$eq || filters.slug;
 
-        return response;
-    },
+      await strapi.db.connection('newsrooms')
+        .where({ slug: slugValue })
+        .update({
+          view: strapi.db.connection.raw('COALESCE(view, 0) + 1')
+        });
+    }
+
+    return response;
+  },
+  async random(ctx) {
+    const limit = ctx.query.limit ? Number(ctx.query.limit) : 1;
+    const results = await strapi.service("api::newsroom.newsroom").findRandom(limit);
+    ctx.body = results;
+  },
 }));
 
