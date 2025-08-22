@@ -530,7 +530,7 @@ export interface ApiEventEvent extends Struct.CollectionTypeSchema {
 export interface ApiHighlightHighlight extends Struct.SingleTypeSchema {
   collectionName: "highlights";
   info: {
-    displayName: "Highlight";
+    displayName: "News & Event Highlights";
     pluralName: "highlights";
     singularName: "highlight";
   };

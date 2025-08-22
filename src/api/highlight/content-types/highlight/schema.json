@@ -4,7 +4,7 @@
   "info": {
     "singularName": "highlight",
     "pluralName": "highlights",
-    "displayName": "Highlight"
+    "displayName": "News & Event Highlights"
   },
   "options": {
     "draftAndPublish": false
