@@ -43,7 +43,7 @@ export default factories.createCoreController('api::event.event', ({ strapi }) =
                     image: { fields: ["url", "alternativeText"] },
                     seo: { populate: { metaImage: true } },
                 },
-                fields: ["title", "description", "publishedAt", "slug"],
+                fields: ["title", "description", "publishedAt", "slug", "updatedAt"],
                 sort: ["publishedAt:desc"],
             });
         } else {
@@ -54,7 +54,7 @@ export default factories.createCoreController('api::event.event', ({ strapi }) =
                     image: { fields: ["url", "alternativeText"] },
                     seo: { populate: { metaImage: true } },
                 },
-                fields: ["title", "description", "publishedAt", "slug"],
+                fields: ["title", "description", "publishedAt", "slug", "updatedAt"],
                 start: randomOffset,
                 limit,
             });

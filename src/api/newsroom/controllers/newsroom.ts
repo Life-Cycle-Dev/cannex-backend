@@ -44,7 +44,7 @@ export default factories.createCoreController('api::newsroom.newsroom', ({ strap
           seo: { populate: { metaImage: true } },
         },
         publicationState: 'live',
-        fields: ["title", "description", "slug", "publishedAt"],
+        fields: ["title", "description", "slug", "publishedAt", "updatedAt"],
         sort: ["publishedAt:desc"],
       });
     } else {
@@ -56,7 +56,7 @@ export default factories.createCoreController('api::newsroom.newsroom', ({ strap
           seo: { populate: { metaImage: true } },
         },
         publicationState: 'live',
-        fields: ["title", "description", "slug", "publishedAt"],
+        fields: ["title", "description", "slug", "publishedAt", "updatedAt"],
         start: randomOffset,
         limit,
       });
