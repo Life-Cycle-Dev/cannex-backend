@@ -1,13 +1,16 @@
-
-
 export default {
     async afterCreate(event) {
         const { result } = event;
 
         try {
-            const config = await strapi.service("api::contact-form-config.contact-form-config").findFirst()
+            const config = await strapi.entityService.findMany(
+                "api::contact-form-config.contact-form-config",
+                {
+                    limit: 1,
+                }
+            );
 
-            if (config.enable !== "true") {
+            if (!config || !config.enable) {
                 return;
             }
 
@@ -15,19 +18,20 @@ export default {
             const replySubject: string = config.replySubject;
             let replyMessage: string = config.replyMessage;
 
-            replyMessage = replyMessage.replace("{firstname}", result.firstname)
+            replyMessage = replyMessage
+                .replace("{firstname}", result.firstname)
                 .replace("{lastname}", result.lastname)
                 .replace("{email}", result.email)
                 .replace("{reason}", result.reason)
-                .replace("{message}", result.message)
+                .replace("{message}", result.message);
 
-            await strapi.plugins['email'].services.email.send({
+            await strapi.plugins["email"].services.email.send({
                 to: result.email,
                 from: process.env.SMTP_USERNAME,
                 cc: replyToEmail,
                 subject: replySubject,
                 html: replyMessage,
-            })
+            });
         } catch (err) {
             console.log(err);
         }
