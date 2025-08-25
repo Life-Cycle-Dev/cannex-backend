@@ -7,6 +7,7 @@ export default ({ env }) => ({
                 rootPath: env('S3_ROOT_PATH'),
                 s3Options: {
                     endpoint: env("S3_ENDPOINT"),
+                    forcePathStyle: true,
                     credentials: {
                         accessKeyId: env('S3_ACCESS_KEY_ID'),
                         secretAccessKey: env('S3_ACCESS_SECRET'),
